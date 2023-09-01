@@ -1,17 +1,11 @@
 import { Router } from 'express'
 import { RolesRepository } from 'src/roles/repositories/RoleRepository'
+import { createRolesController } from 'src/roles/useCases/createRole'
+
 const rolesRouter = Router()
 const rolesRepository = new RolesRepository()
-
 rolesRouter.post('/', (request, response) => {
-  const { name } = request.body
-  const roleAlreadyExists = rolesRepository.findByName(name)
-  if (roleAlreadyExists) {
-    return response.status(400).json({ error: 'Role already exists' })
-  }
-  const role = rolesRepository.create({ name })
-
-  return response.status(201).json(role)
+  return createRolesController.handle(request, response)
 })
 
 rolesRouter.get('/', (request, response) => {
