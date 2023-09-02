@@ -5,7 +5,6 @@ import { listRolesController } from 'src/roles/useCases/listRoles'
 import { showRolesController } from 'src/roles/useCases/showRole'
 import { updateRolesController } from 'src/roles/useCases/updateRole'
 import { celebrate, Joi, Segments } from 'celebrate'
-import { join } from 'path'
 
 const rolesRouter = Router()
 rolesRouter.post(
