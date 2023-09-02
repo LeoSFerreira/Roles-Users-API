@@ -1,5 +1,5 @@
 import { Role } from 'src/roles/entities/Role'
-import { RolesRepository } from 'src/roles/repositories/RoleRepository'
+import { RolesRepository } from 'src/roles/repositories/RolesRepository'
 import { AppError } from 'src/shared/errors/AppError'
 
 type CreateRoleDTO = {

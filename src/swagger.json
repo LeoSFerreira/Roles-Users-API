@@ -1,0 +1,12 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "MyAPI Documentation",
+    "description": "MyAPI Documentation with all especifications",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Leonardo Ferreira",
+      "email": "contato.leosf@gmail.com"
+    }
+  }
+}
