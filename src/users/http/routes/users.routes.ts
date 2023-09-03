@@ -1,5 +1,6 @@
 import { celebrate, Joi, Segments } from 'celebrate'
 import { Router } from 'express'
+import { isAuthenticated } from 'src/shared/http/middlewares/isAuthenticated'
 import { CreateLoginController } from 'src/users/useCases/createLogin/CreateLoginController'
 import { CreateUserController } from 'src/users/useCases/createUser/CreateUserController'
 import { ListUsersController } from 'src/users/useCases/listUsers/ListUsersController'
@@ -12,6 +13,7 @@ const createLoginController = container.resolve(CreateLoginController)
 
 usersRouter.post(
   '/',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -28,6 +30,7 @@ usersRouter.post(
 
 usersRouter.get(
   '/',
+  isAuthenticated,
   celebrate({
     [Segments.QUERY]: {
       page: Joi.number(),
