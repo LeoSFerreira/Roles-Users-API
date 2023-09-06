@@ -1,16 +1,20 @@
 import { celebrate, Joi, Segments } from 'celebrate'
 import { Router } from 'express'
 import { isAuthenticated } from 'src/shared/http/middlewares/isAuthenticated'
+import { CreateAccessAndRefreshTokenController } from 'src/users/useCases/createAccessAndRefreshToken/CreateAccessAndRefreshTokenController'
 import { CreateLoginController } from 'src/users/useCases/createLogin/CreateLoginController'
 import { CreateUserController } from 'src/users/useCases/createUser/CreateUserController'
 import { ListUsersController } from 'src/users/useCases/listUsers/ListUsersController'
 import { container } from 'tsyringe'
+import { addUserInfoToRequest } from '../middlewares/addUserInfoToRequest'
 
 const usersRouter = Router()
 const createUserController = container.resolve(CreateUserController)
 const listUsersController = container.resolve(ListUsersController)
 const createLoginController = container.resolve(CreateLoginController)
-
+const createAccessAndRefreshTokenController = container.resolve(
+  CreateAccessAndRefreshTokenController,
+)
 usersRouter.post(
   '/',
   isAuthenticated,
@@ -52,6 +56,20 @@ usersRouter.post(
   }),
   (request, response) => {
     return createLoginController.handle(request, response)
+  },
+)
+
+usersRouter.post(
+  '/refresh_token',
+  addUserInfoToRequest,
+  addUserInfoToRequest,
+  celebrate({
+    [Segments.BODY]: {
+      refresh_token: Joi.string().required(),
+    },
+  }),
+  (request, response) => {
+    return createAccessAndRefreshTokenController.handle(request, response)
   },
 )
 

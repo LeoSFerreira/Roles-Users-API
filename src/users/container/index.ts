@@ -3,6 +3,7 @@ import { IRefreshTokenRepository } from '../repositories/IRefreshTokenRepository
 import { IUsersRepository } from '../repositories/IUsersRepository'
 import { RefreshTokenRepository } from '../repositories/RefreshTokenRepository'
 import { UsersRepository } from '../repositories/UsersRepository'
+import { CreateAccessAndRefreshTokenController } from '../useCases/createAccessAndRefreshToken/CreateAccessAndRefreshTokenController'
 import { CreateLoginController } from '../useCases/createLogin/CreateLoginController'
 import { CreateUserController } from '../useCases/createUser/CreateUserController'
 import { ListUsersController } from '../useCases/listUsers/ListUsersController'
@@ -20,3 +21,7 @@ container.registerSingleton<IRefreshTokenRepository>(
 container.registerSingleton('CreateUserController', CreateUserController)
 container.registerSingleton('ListUsersController', ListUsersController)
 container.registerSingleton('CreateLoginController', CreateLoginController)
+container.registerSingleton(
+  'CreateAccessAndRefreshTokenController',
+  CreateAccessAndRefreshTokenController,
+)
