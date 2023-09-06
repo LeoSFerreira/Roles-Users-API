@@ -1,6 +1,6 @@
 import { RefreshToken } from '../entities/RefreshToken'
 
-type CreateRefreshTokenDTO = {
+export type CreateRefreshTokenDTO = {
   user_id: string
   token: string
   expires: Date
