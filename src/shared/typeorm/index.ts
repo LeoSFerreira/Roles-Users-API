@@ -4,6 +4,7 @@ import { DataSource } from 'typeorm'
 import { CreateRolesTable1693673167180 } from './migrations/1693673167180-CreateRolesTable'
 import { CreateUserTable1693740137535 } from './migrations/1693740137535-CreateUserTable'
 import { AddRoleIdToUsersTable1693740876194 } from './migrations/1693740876194-AddRoleIdToUsersTable'
+import { CreateRefreshTokensTable1694021487276 } from './migrations/1694021487276-CreateRefreshTokensTable'
 
 export const dataSource = new DataSource({
   type: 'sqlite',
@@ -13,5 +14,6 @@ export const dataSource = new DataSource({
     CreateRolesTable1693673167180,
     CreateUserTable1693740137535,
     AddRoleIdToUsersTable1693740876194,
+    CreateRefreshTokensTable1694021487276,
   ],
 })
