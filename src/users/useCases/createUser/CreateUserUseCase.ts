@@ -28,9 +28,9 @@ export class CreateUserUseCase {
     roleId,
   }: CreateUserDTO): Promise<User> {
     const emailExists = await this.usersRepository.findByEmail(email)
-    if (emailExists) {
+    /* if (emailExists) {
       throw new AppError('Email address already used')
-    }
+    } */
     const role = await this.rolesRepository.findById(roleId)
     if (!role) {
       throw new AppError('Role not found', 404)

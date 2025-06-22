@@ -37,22 +37,35 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findAll({
+    search,
     page,
     skip,
     take,
   }: PaginateParams): Promise<UsersPaginateProperties> {
-    const [users, count] = await this.repository
-      .createQueryBuilder('r')
-      .leftJoinAndSelect('r.role', 'role')
+    const queryBuilder = this.repository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.role', 'role')
+
+    if (search) {
+      queryBuilder.andWhere(`LOWER(user.name) LIKE LOWER(:search)`, {
+        search: `%${search.toLowerCase()}%`,
+      })
+    }
+
+    queryBuilder.orderBy('user.name', 'ASC')
+
+    const [users, count] = await queryBuilder
       .skip(skip)
       .take(take)
       .getManyAndCount()
-    const result = {
+
+    const result: UsersPaginateProperties = {
       per_page: take,
       total: count,
       current_page: page,
       data: users,
     }
+
     return result
   }
 

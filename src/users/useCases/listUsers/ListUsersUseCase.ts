@@ -7,6 +7,7 @@ import {
 type ListUsersUseCaseParams = {
   page: number
   limit: number
+  search: string
 }
 
 @injectable()
@@ -19,9 +20,10 @@ export class ListUsersUseCase {
   async execute({
     limit,
     page,
+    search,
   }: ListUsersUseCaseParams): Promise<UsersPaginateProperties> {
     const take = limit
     const skip = (Number(page) - 1) * take
-    return this.usersRepository.findAll({ page, skip, take })
+    return this.usersRepository.findAll({ page, skip, take, search })
   }
 }

@@ -6,7 +6,9 @@ import { ListRolesController } from 'src/roles/useCases/listRoles/ListRolesContr
 import { ShowRoleController } from 'src/roles/useCases/showRole/ShowRoleController'
 import { UpdateRoleController } from 'src/roles/useCases/updateRole/UpdateRoleController'
 import { DeleteRoleController } from 'src/roles/useCases/deleteRole/DeleteRoleController'
+import csrf from 'csurf'
 import { isAuthenticated } from 'src/shared/http/middlewares/isAuthenticated'
+import { csrfProtection } from 'src/shared/http/middlewares/csrfProtection'
 
 const rolesRouter = Router()
 const createRolesController = container.resolve(CreateRoleController)
@@ -16,9 +18,9 @@ const updateRolesController = container.resolve(UpdateRoleController)
 const deleteRolesController = container.resolve(DeleteRoleController)
 
 rolesRouter.use(isAuthenticated)
-
 rolesRouter.post(
   '/',
+  csrfProtection,
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
@@ -56,6 +58,7 @@ rolesRouter.get(
 
 rolesRouter.put(
   '/:id',
+  csrfProtection,
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       id: Joi.string().uuid().required(),
@@ -71,6 +74,7 @@ rolesRouter.put(
 
 rolesRouter.delete(
   '/:id',
+  csrfProtection,
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       id: Joi.string().uuid().required(),

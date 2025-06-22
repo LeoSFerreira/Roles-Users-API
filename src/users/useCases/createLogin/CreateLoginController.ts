@@ -12,11 +12,24 @@ export class CreateLoginController {
         email,
         password,
       })
+    response
+      .cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 15, // 15 minutos
+      })
+      .cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
+      })
+
     return response.status(201).json(
       instanceToInstance({
         user,
-        accessToken,
-        refreshToken,
+        message: 'Authenticated',
       }),
     )
   }

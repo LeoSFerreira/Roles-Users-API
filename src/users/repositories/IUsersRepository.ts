@@ -13,6 +13,7 @@ export type PaginateParams = {
   page: number
   skip: number
   take: number
+  search: string
 }
 
 export type UsersPaginateProperties = {
@@ -29,6 +30,7 @@ export interface IUsersRepository {
     page,
     skip,
     take,
+    search,
   }: PaginateParams): Promise<UsersPaginateProperties>
   findById(id: string): Promise<User | null>
   findByName(name: string): Promise<User | null>

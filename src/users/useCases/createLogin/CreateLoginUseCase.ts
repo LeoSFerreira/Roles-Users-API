@@ -32,6 +32,8 @@ export class CreateLoginUseCase {
       throw new AppError('Incorrect email/password combination', 401)
     }
     const passwordConfirmed = await compare(password, user.password)
+    console.log(password)
+    console.log(user.password)
     if (!passwordConfirmed) {
       throw new AppError('Incorrect email/password combination', 401)
     }

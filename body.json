@@ -1,0 +1,7 @@
+{
+  "name": "Teste CSRF",
+  "email": "hacker00012@evil.com",
+  "password": "123456",
+  "isAdmin": false,
+  "roleId": "c6777f5b-8955-4f21-baa3-454f43ae1476"
+}

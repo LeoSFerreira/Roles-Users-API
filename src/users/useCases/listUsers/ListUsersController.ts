@@ -14,8 +14,8 @@ export class ListUsersController {
       request.query.limit && Number(request.query.limit) > 0
         ? Number(request.query.limit)
         : 15
-
-    const users = await listUsersUseCase.execute({ page, limit })
+    const search = request.query.search ? String(request.query.search) : null
+    const users = await listUsersUseCase.execute({ page, limit, search })
     return response.json(instanceToInstance(users))
   }
 }
